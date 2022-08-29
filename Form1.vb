@@ -2,7 +2,7 @@
 Imports cvext = OpenCvSharp.Extensions
 Imports System.Drawing
 Imports System.IO
-Public Class NameTags
+Public Class Form1
     Dim picPage As PictureBox
     Dim cols As Integer = 790, rows As Integer = 1010
     Dim printFont As Font
@@ -22,7 +22,7 @@ Public Class NameTags
 
         Dim redDevil = cv.Cv2.ImRead("../../../RedDevil.jpg")
         redDevil = redDevil.Resize(New cv.Size(redDevil.Width * 0.4, redDevil.Height * 0.4))
-        For i = 0 To 10
+        For i = 9 To 20
             Dim picDir As New DirectoryInfo("../../../pics" + CStr(i))
             If picDir.Exists = False Then Exit For
             Dim index As Integer = 0, xIncr As Integer = 0, yIncr As Integer = 0, tweak As Integer = 0
@@ -37,7 +37,7 @@ Public Class NameTags
                 pic.CopyTo(nametagMat(r))
                 Dim personName = fn.Name.Substring(0, Len(fn.Name) - 4)
                 Dim split = personName.Split(" ")
-                Dim rdRect = New cv.Rect(r1.x + 20 + xIncr, r1.y + 20 + yIncr, redDevil.Width, redDevil.Height)
+                Dim rdRect = New cv.Rect(r1.x + 30 + xIncr, r1.y + 20 + yIncr, redDevil.Width, redDevil.Height)
                 redDevil.CopyTo(nametagMat(rdRect))
                 If split(0).Length > 5 Then
                     cv.Cv2.PutText(nametagMat, split(0), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height - 15), cv.HersheyFonts.HersheyPlain, 2.8,
@@ -46,8 +46,10 @@ Public Class NameTags
                     cv.Cv2.PutText(nametagMat, split(0), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height - 15), cv.HersheyFonts.HersheyPlain, 3.5,
                                    cv.Scalar.Black, 2, cv.LineTypes.AntiAlias)
                 End If
-                cv.Cv2.PutText(nametagMat, split(1), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height + 25), cv.HersheyFonts.HersheyPlain, 3.0,
+                cv.Cv2.PutText(nametagMat, split(1), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height + 33), cv.HersheyFonts.HersheyPlain, 3.0,
                                    cv.Scalar.Black, 2, cv.LineTypes.AntiAlias)
+                cv.Cv2.PutText(nametagMat, "2022", New cv.Point(CInt(r1.X + xIncr), r.Y + 15), cv.HersheyFonts.HersheySimplex, 0.5,
+                                   cv.Scalar.Gray, 2, cv.LineTypes.AntiAlias)
                 If index Mod 2 = 1 Then yIncr += r1.height + 23
                 index += 1
             Next
