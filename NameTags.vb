@@ -2,7 +2,7 @@
 Imports cvext = OpenCvSharp.Extensions
 Imports System.Drawing
 Imports System.IO
-Public Class Form1
+Public Class NameTags
     Dim picPage As PictureBox
     Dim cols As Integer = 790, rows As Integer = 1010
     Dim printFont As Font
