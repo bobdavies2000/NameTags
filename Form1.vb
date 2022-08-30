@@ -5,20 +5,19 @@ Imports System.IO
 Public Class Form1
     Dim picPage As PictureBox
     Dim cols As Integer = 790, rows As Integer = 1010
-    Dim printFont As Font
-    Dim nametagMat As cv.Mat
+    Dim nameTagMat As cv.Mat
     Dim r1 = New cv.Rect(58, 48, 320, 220)
     Private Sub clearNameTag()
-        nametagMat = New cv.Mat(rows, cols, cv.MatType.CV_8UC3, cv.Scalar.White)
+        nameTagMat = New cv.Mat(rows, cols, cv.MatType.CV_8UC3, cv.Scalar.White)
         For i = 0 To 4 - 1
             Dim r = New cv.Rect(r1.X, r1.Y + i * (r1.Height + 23), r1.Width, r1.Height)
-            nametagMat.Rectangle(r, cv.Scalar.Black, 1)
+            nameTagMat.Rectangle(r, cv.Scalar.Black, 1)
             Dim r2 = New cv.Rect(r1.X + r1.Width + 40, r1.Y + i * (r1.Height + 23), r1.Width, r1.Height)
-            nametagMat.Rectangle(r2, cv.Scalar.Black, 1)
+            nameTagMat.Rectangle(r2, cv.Scalar.Black, 1)
         Next
     End Sub
     Private Sub displayPage()
-        printFont = New Font("Arial", 10)
+        Dim printFont = New Font("Arial", 10)
 
         Dim redDevil = cv.Cv2.ImRead("../../../RedDevil.jpg")
         redDevil = redDevil.Resize(New cv.Size(redDevil.Width * 0.4, redDevil.Height * 0.4))
@@ -53,14 +52,15 @@ Public Class Form1
                 If index Mod 2 = 1 Then yIncr += r1.height + 23
                 index += 1
             Next
-            cv.Cv2.ImShow("Nametagmat", nametagMat)
+            cv.Cv2.ImWrite("../../../Pic" + CStr(i) + ".jpg", nameTagMat)
+            cv.Cv2.ImShow("nameTagMat", nameTagMat)
             cv.Cv2.WaitKey(5000)
             clearNameTag()
         Next
     End Sub
-    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        displayPage()
-        pd.Print()
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs)
+        'displayPage()
+        'pd.Print()
     End Sub
     Private Sub pd_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles pd.PrintPage
         Dim g As Graphics = e.Graphics
