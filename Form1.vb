@@ -21,7 +21,7 @@ Public Class Form1
 
         Dim redDevil = cv.Cv2.ImRead("../../../RedDevil.jpg")
         redDevil = redDevil.Resize(New cv.Size(redDevil.Width * 0.4, redDevil.Height * 0.4))
-        For i = 9 To 20
+        For i = 0 To 20
             Dim picDir As New DirectoryInfo("../../../pics" + CStr(i))
             If picDir.Exists = False Then Exit For
             Dim index As Integer = 0, xIncr As Integer = 0, yIncr As Integer = 0, tweak As Integer = 0
@@ -30,31 +30,31 @@ Public Class Form1
                 If index Mod 2 = 0 Then xIncr = 0 Else xIncr = r1.width + 40
                 Dim newSize = New cv.Size(CInt(pic.Width / pic.Height * r1.height), CInt(r1.height))
                 If pic.Height > r1.height Then pic = pic.Resize(newSize)
-                pic = pic.Resize(New cv.Size(pic.Width * 0.8, pic.Height * 0.8))
+                pic = pic.Resize(New cv.Size(pic.Width * 0.75, pic.Height * 0.75))
                 If index Mod 2 = 0 Then tweak = 0 Else tweak = 80
-                Dim r = New cv.Rect(r1.x + xIncr + r1.width - pic.Width, r1.y + yIncr, pic.Width, pic.Height)
-                pic.CopyTo(nametagMat(r))
+                Dim r = New cv.Rect(r1.x + xIncr + r1.width - pic.Width, r1.y + yIncr + 1, pic.Width, pic.Height)
+                pic.CopyTo(nameTagMat(r))
                 Dim personName = fn.Name.Substring(0, Len(fn.Name) - 4)
                 Dim split = personName.Split(" ")
-                Dim rdRect = New cv.Rect(r1.x + 30 + xIncr, r1.y + 20 + yIncr, redDevil.Width, redDevil.Height)
-                redDevil.CopyTo(nametagMat(rdRect))
+                Dim rdRect = New cv.Rect(r1.x + 40 + xIncr, r1.y + 15 + yIncr, redDevil.Width, redDevil.Height)
+                redDevil.CopyTo(nameTagMat(rdRect))
                 If split(0).Length > 5 Then
-                    cv.Cv2.PutText(nametagMat, split(0), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height - 15), cv.HersheyFonts.HersheyPlain, 2.8,
+                    cv.Cv2.PutText(nameTagMat, split(0), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height - 20), cv.HersheyFonts.HersheyTriplex, 1.4,
                                    cv.Scalar.Black, 2, cv.LineTypes.AntiAlias)
                 Else
-                    cv.Cv2.PutText(nametagMat, split(0), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height - 15), cv.HersheyFonts.HersheyPlain, 3.5,
+                    cv.Cv2.PutText(nameTagMat, split(0), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height - 20), cv.HersheyFonts.HersheyTriplex, 1.6,
                                    cv.Scalar.Black, 2, cv.LineTypes.AntiAlias)
                 End If
-                cv.Cv2.PutText(nametagMat, split(1), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height + 33), cv.HersheyFonts.HersheyPlain, 3.0,
+                cv.Cv2.PutText(nameTagMat, split(1), New cv.Point(CInt(r1.X + xIncr), r.Y + pic.Height + 35), cv.HersheyFonts.HersheyTriplex, 1.5,
                                    cv.Scalar.Black, 2, cv.LineTypes.AntiAlias)
-                cv.Cv2.PutText(nametagMat, "2022", New cv.Point(CInt(r1.X + xIncr), r.Y + 15), cv.HersheyFonts.HersheySimplex, 0.5,
+                cv.Cv2.PutText(nameTagMat, "2022", New cv.Point(CInt(r1.X + xIncr), r.Y + 15), cv.HersheyFonts.HersheySimplex, 0.5,
                                    cv.Scalar.Gray, 2, cv.LineTypes.AntiAlias)
                 If index Mod 2 = 1 Then yIncr += r1.height + 23
                 index += 1
             Next
             cv.Cv2.ImWrite("../../../Pic" + CStr(i) + ".jpg", nameTagMat)
             cv.Cv2.ImShow("nameTagMat", nameTagMat)
-            cv.Cv2.WaitKey(5000)
+            cv.Cv2.WaitKey(1)
             clearNameTag()
         Next
     End Sub

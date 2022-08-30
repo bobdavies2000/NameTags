@@ -111,11 +111,12 @@
    - Like this: "Bob Davies.jpg"
 2) Run
    - This will create one image for each "Pics" directory
-3) Drag all the images into the Word Doc included
-   - "NameTags.docx" has special margins for alignment
+3) Drag all the images into a Word Doc 
+   - Set "Custom Margin" under Layout
+   - 0.18 top margin and 0.12 left margin
 4) Print the Word doc:
    - Test with regular paper
-   - Load printer with the following:
+   - Then load printer with the following:
      Avery 88395 name tags 3.5 in wide by 2.5 in high
 
 </value>
