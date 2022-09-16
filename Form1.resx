@@ -105,12 +105,11 @@
   <data name="TextBox1.Text" xml:space="preserve">
     <value>To use this software:
 
-1) Place photos in Pics directories
-   - No more than 8 photos per directory
+1) Place photos in Pics directory
    - Name each photo with a space between first and last name
    - Like this: "Bob Davies.jpg"
 2) Run
-   - This will create one image for each "Pics" directory
+   - This will create one image for every 8 pictures in Pics
 3) Drag all the images into a Word Doc 
    - Set "Custom Margin" under Layout
    - 0.18 top margin and 0.12 left margin
@@ -118,6 +117,7 @@
    - Test with regular paper
    - Then load printer with the following:
      Avery 88395 name tags 3.5 in wide by 2.5 in high
+
 
 </value>
   </data>
